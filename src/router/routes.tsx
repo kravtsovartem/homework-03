@@ -1,6 +1,7 @@
 import UseFetchPage from '@/pages/UseFetchPage'
 import UseLocalStoragePage from '@/pages/UseLocalStoragePage'
-import UseHover from '@/pages/UseHover'
+import UseHover from '@/pages/UseHoverPage'
+import UseViewportSizePage from '@/pages/UseViewportSizePage'
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/useHover',
     element: <UseHover/>,
+  },
+  {
+    path: '/useViewportSize',
+    element: <UseViewportSizePage/>,
   },
 ]
 
