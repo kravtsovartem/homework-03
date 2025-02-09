@@ -18,6 +18,9 @@ export default function App() {
 				<Link to="/useViewportSize">
 					<button>useViewportSize</button>
 				</Link>
+				<Link to="/useWindowScroll">
+					<button>useWindowScroll</button>
+				</Link>
 				<hr />
 			</div>
 
