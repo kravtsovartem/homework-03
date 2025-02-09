@@ -15,6 +15,9 @@ export default function App() {
 				<Link to="/useHover">
 					<button>useHover</button>
 				</Link>
+				<Link to="/useViewportSize">
+					<button>useViewportSize</button>
+				</Link>
 				<hr />
 			</div>
 
