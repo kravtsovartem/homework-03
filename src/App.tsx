@@ -12,6 +12,9 @@ export default function App() {
 				<Link to="/useLocalStorage">
 					<button>useLocalStorage</button>
 				</Link>
+				<Link to="/useHover">
+					<button>useHover</button>
+				</Link>
 				<hr />
 			</div>
 
