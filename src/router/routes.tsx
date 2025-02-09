@@ -3,27 +3,32 @@ import UseLocalStoragePage from '@/pages/UseLocalStoragePage'
 import UseHover from '@/pages/UseHoverPage'
 import UseViewportSizePage from '@/pages/UseViewportSizePage'
 import UseWindowScrollPage from '@/pages/UseWindowScrollPage'
+import UseTogglePage from '@/pages/UseTogglePage'
 
 const routes = [
   {
     path: '/',
-    element: <UseFetchPage/>,
+    element: <UseFetchPage />,
   },
   {
     path: '/useLocalStorage',
-    element: <UseLocalStoragePage/>,
+    element: <UseLocalStoragePage />,
   },
   {
     path: '/useHover',
-    element: <UseHover/>,
+    element: <UseHover />,
   },
   {
     path: '/useViewportSize',
-    element: <UseViewportSizePage/>,
+    element: <UseViewportSizePage />,
   },
   {
     path: '/useWindowScroll',
-    element: <UseWindowScrollPage/>,
+    element: <UseWindowScrollPage />,
+  },
+  {
+    path: '/useToggle',
+    element: <UseTogglePage />,
   },
 ]
 
