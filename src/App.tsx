@@ -9,6 +9,9 @@ export default function App() {
 				<Link to="/">
 					<button>useFetch</button>
 				</Link>
+				<Link to="/useLocalStorage">
+					<button>useLocalStorage</button>
+				</Link>
 				<hr />
 			</div>
 
