@@ -1,9 +1,9 @@
 import useToggle from '@/hooks/useToggle'
 
 export default function UseTogglePage() {
-  const [value, toggle] = useToggle(['blue', 'orange', 'cyan', 'teal'])
+  const [value, toggle] = useToggle<string[]>(['blue', 'orange', 'cyan', 'teal'])
 
-	const [valueBool, setValueBool] = useToggle()
+	const [valueBool, setValueBool] = useToggle<boolean>(true)
 
   return (
     <>

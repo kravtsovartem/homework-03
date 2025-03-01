@@ -1,15 +1,32 @@
-import { useEffect, useLayoutEffect, useReducer, useState } from "react"
+import { useLayoutEffect, useReducer } from "react"
 
+type IUseToggle<T> = [T, (name?: string) => void]
 
-const reducer = (state: boolean | [] | string, action: { type: string, payload: boolean | [], value?: string }) => {
+interface IAction<T> {
+	type: string,
+	payload: T,
+	value?: string
+}
+
+type IState<T> = T
+
+interface IActions {
+	[key: string]: () => boolean | []
+	boolean: () => boolean
+	array: () => []
+}
+
+const reducer = <T>(state: IState<T>, action: IAction<T>): T => {
 	
-	const actions = {
-		'boolean'() {
-			return action.payload
+	const actions: IActions = {
+		'boolean'(): boolean {
+			return !action.payload
 		},
-		'array'() {
+		'array'(): [] {
 			const { payload, value } = action
-
+			if(!Array.isArray(payload))
+				return []
+			
 			let nextIndex = payload.indexOf(value ?? state)
 
 			if(!value)
@@ -19,15 +36,15 @@ const reducer = (state: boolean | [] | string, action: { type: string, payload: 
 		}
 	}
 
-	return actions[action.type]()
+	return actions[action.type]() as T
 }
 
-export default function useToggle(initState = false) {
+export default function useToggle<T>(initState: T): IUseToggle<T> {
 	const [state, dispatch] = useReducer(reducer, initState)
-	const [booleanValue, setBooleanValue] = useState(initState)
 
 	useLayoutEffect(() => {
-		toggle(initState[0])
+		if(Array.isArray(initState))
+			toggle(initState[0])
 	}, [])
 
 	const toggle = (name?: string) => {
@@ -42,13 +59,11 @@ export default function useToggle(initState = false) {
 				value: name
 			})
 
-		
 		if(isBool) {
 			dispatch({
 				type: 'boolean',
-				payload: booleanValue,
+				payload: state,
 			})
-			setBooleanValue(!booleanValue)
 		}
 	}
 
