@@ -7,20 +7,20 @@ interface IFetchBody {
 interface IUseFetch<T> {
 	data: T | null
 	isLoading: boolean
-	error: string | null
+	error: string
 	refetch: (params?: IFetchBody) => void
 }
 
 export default function useFetch<T>(url: string, body?: IFetchBody): IUseFetch<T> {
 
-	const [data, setData] = useState(null)
+	const [data, setData] = useState<T | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState<string>('')
 
 	const send = async (fetchUrl: string, body: IFetchBody = { params: {} }, signal?: AbortSignal) => {
 		try {
 			setIsLoading(true)
-			setError(null)
+			setError('')
 
 			const url: URL = new URL(fetchUrl)
 
