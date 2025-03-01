@@ -20,7 +20,7 @@ export default function useFetch<T>(url: string, body?: IFetchBody): IUseFetch<T
 	const send = async (fetchUrl: string, body: IFetchBody = { params: {} }, signal?: AbortSignal) => {
 		try {
 			setIsLoading(true)
-
+			setError(null)
 
 			const url: URL = new URL(fetchUrl)
 
