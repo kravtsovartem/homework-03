@@ -1,37 +1,53 @@
 import { useEffect, useState } from "react"
 
 interface IFetchBody {
-	params?: object | undefined
+	params?: Record<string, string>
 }
 
-export default function useFetch(url: string, body?: IFetchBody) {
+interface IUseFetch<T> {
+  data: T | null
+  isLoading: boolean
+  error: string | null
+  refetch: (params?: IFetchBody) => void
+}
+
+export default function useFetch<T>(url: string, body?: IFetchBody): IUseFetch<T> {
 
 	const [data, setData] = useState(null)
 	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState(null)
+	const [error, setError] = useState<string | null>(null)
 
 
-	
+
 	const send = async (fetchUrl: string, body: IFetchBody = { params: {} }) => {
 		try {
 			setIsLoading(true)
 
-			const url = new URL(fetchUrl)
+			const url: URL = new URL(fetchUrl)
 
-			url.search = new URLSearchParams(body.params)
+
+			const searchParams: URLSearchParams = new URLSearchParams(body.params)
+
+			url.search = searchParams.toString()
+
 
 			const res = await fetch(url).then(res => res.json())
 
 			setData(res)
 			setIsLoading(false)
-		} catch(e) {
+		} catch (e) {
 			setData(null)
-			setError(e)
+			
+			if(e instanceof Error)
+				setError(e.message)
+
 			console.warn(e)
+		} finally {
+			setIsLoading(false)
 		}
 	}
 
-	const refetch = (body: IFetchBody) => {
+	const refetch = (body) => {
 		setData(null)
 		send(url, body)
 	}
