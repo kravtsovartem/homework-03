@@ -33,8 +33,11 @@ export default function useFetch<T>(url: string, body?: IFetchBody): IUseFetch<T
 
 			const res = await fetch(url).then(res => res.json())
 
-			setData(res)
+			if(res.ok)
+				setData(res)
+
 			setIsLoading(false)
+
 		} catch (e) {
 			setData(null)
 			
