@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useHover() {
-	const ref = useRef(null);
-	const [hovered, setHovered] = useState(false);
+interface IUseHover<T> {
+	hovered: boolean,
+	ref: React.Ref<T> | undefined
+}
+
+export default function useHover<T extends HTMLDivElement>(): IUseHover<T> {
+	const ref = useRef<T>(null)
+	const [hovered, setHovered] = useState<boolean>(false)
 
 	useEffect(() => {
-		if(!ref.current)
+		if (!ref.current)
 			return
 
 		const domElement: HTMLElement = ref.current
@@ -23,7 +28,7 @@ export default function useHover() {
 			domElement.removeEventListener('mouseout', () => {})
 			setHovered(false)
 		}
-		
+
 	}, [ref])
 
 	return {
