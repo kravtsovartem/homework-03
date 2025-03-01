@@ -9,23 +9,28 @@ export default function useHover<T extends HTMLDivElement>(): IUseHover<T> {
 	const ref = useRef<T>(null)
 	const [hovered, setHovered] = useState<boolean>(false)
 
+
+	function onMouseOver() {
+		setHovered(true)
+	}
+
+	function onMouseOut() {
+		setHovered(false)
+	}
+
+
 	useEffect(() => {
 		if (!ref.current)
 			return
 
 		const domElement: HTMLElement = ref.current
 
-		domElement.addEventListener('mouseover', () => {
-			setHovered(true)
-		})
-
-		domElement.addEventListener('mouseout', () => {
-			setHovered(false)
-		})
+		domElement.addEventListener('mouseover', onMouseOver)
+		domElement.addEventListener('mouseout', onMouseOut)
 
 		return () => {
-			domElement.removeEventListener('mouseover', () => {})
-			domElement.removeEventListener('mouseout', () => {})
+			domElement.removeEventListener('mouseover', onMouseOver)
+			domElement.removeEventListener('mouseout', onMouseOut)
 			setHovered(false)
 		}
 
